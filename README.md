@@ -15,10 +15,10 @@ Using `.NET Interactive`, I will get comfortable with the various modules that w
 3. Deploy a Basic Live Server and Port Forward
    - Purpose: Become familiarized with `ASP.NET Core` web capabilities.
 
-4. Stream Real-Time Camera on Live Server
+1. Stream Real-Time Camera on Live Server
    - Purpose: Become familiarized using `ASP.NET Core`'s interface with `OpenCV` streaming.
   
-5. TODO...
+1. TODO...
 
 ## Implementation
 TODO...
