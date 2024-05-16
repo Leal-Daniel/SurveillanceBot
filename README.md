@@ -5,20 +5,17 @@
 Prior to implementing the deployable C# code for this project onto a device, familiarization with the libraries is required to ensure a well designed software. 
 
 Using `.NET Interactive`, I will get comfortable with the various modules that will be used in the final implementation of this project. The designing workflow in this notebook file will be:
-1. [Face and Eye Detection Using Images](FacialRecognition.ipynb)
-   - Purpose: Become familiarized with `OpenCV` and `Emgu.CV` capabilities in .NET.
+1. [Face and Eye Detection in Realtime](FacialRecognition.ipynb)
+   - Purpose: Become familiarized with `OpenCV` and `Emgu.CV` capabilities in .NET with a real-time camera device.
    ![FacialDetection-Usingimages](Images/FacialDetection-UsingImages.JPG)
 
-2. Face and Eye Detection in Real-Time
-   - Purpose: Connect `Emgu.CV` to a real-time camera device.
-
-3. Deploy a Basic Live Server and Port Forward
+1. Deploy a Basic Live Server and Port Forward
    - Purpose: Become familiarized with `ASP.NET Core` web capabilities.
 
-4. Stream Real-Time Camera on Live Server
+1. Stream Real-Time Camera on Live Server
    - Purpose: Become familiarized using `ASP.NET Core`'s interface with `OpenCV` streaming.
   
-5. TODO...
+1. TODO...
 
 ## Implementation
 TODO...
