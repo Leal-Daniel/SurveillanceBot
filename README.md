@@ -5,7 +5,7 @@
 
 # Pet Surveillance Bot
 **Project Goal:** Using *only* C#, create a publicly accessible live server to control the movement of a streaming robotic device that has pet recognition and movement detection capabilities. 
-- Design: [Design/SoftwareDesign.md](/Design/SoftwareDesign.md)
+- Design: [Documentation/SoftwareDesign.md](/Documentation/SoftwareDesign.md)
 - Implementation: [Source/]()
 
 ## High-Level Overview
