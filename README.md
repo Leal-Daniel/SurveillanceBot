@@ -1,20 +1,61 @@
 # Table of Contents
 - [Table of Contents](#table-of-contents)
 - [Pet Surveillance Bot](#pet-surveillance-bot)
-  - [Designing](#designing)
-  - [Inspiration](#inspiration)
+  - [High-Level Overview](#high-level-overview)
 
 # Pet Surveillance Bot
-**Project Goal:** Using *only* C#, create a publicly accessible live server to control the movement of a streaming robotic device that has pet recognition and movement detection capabilities.
+**Project Goal:** Using *only* C#, create a publicly accessible live server to control the movement of a streaming robotic device that has pet recognition and movement detection capabilities. 
+- Design: [Design/SoftwareDesign.md](/Design/SoftwareDesign.md)
+- Implementation: [Source/]()
 
-## Designing
-**Purpose:** Prior to implementing the deployable C# code for this project onto a device, familiarization with the libraries is required to ensure a well designed, robust software implementation. 
+## High-Level Overview
+```mermaid
+graph TD
+  EP[Entry Point]
+  PVH[Possess Valid HW]
+  DS[Deploy SW]
+  ACC[Activate Camera Content\nand apply Object Detection]
+  AL[Activate Logger]
+  SCC[Stream Camera Content]
+  ALS[Activate Live Server\nand Joystick]
+  DLS[Display Stream\nand Joystick Content]
+  HR[HTTP Request to Server]
+  RH[Request Handling]
+  A{Authentication}
+  AWS[Access Website]
+  AcLS[Access Live Stream\nand Joystick]
+  LL[Log Logins]
 
-**Procedure:** Using `.NET Interactive`, `Emgu.CV`, and `ASP.NET`, I will get comfortable with the various modules that will be used in the final implementation of this project. The designing workflow will be:
-1. Face and Eye Detection Using Images - [Design/FacialImageDetections.ipynb](Design/FacialImageDetections.ipynb)
-2. Face and Eye Detection in Real-Time - [Design/FacialRealTimeDetections.ipynb](Design/FacialRealTimeDetections.ipynb)
-3. Port Forward a Live Server -
-4. Stream Real-Time Camera on Live Server 
+  EP ===> PVH
+  PVH --> DS
 
-## Inspiration
-- [gilbertgonz/homebot](https://github.com/gilbertgonz/homebot)
+  subgraph Controller
+    DS --> AL
+    DS --> ACC
+    DS --> ALS
+
+    subgraph Logger
+      AL --> LL
+    end
+
+    subgraph ASP.NET Server
+      ALS --> DLS
+    end
+
+    subgraph Camera Content
+      ACC -->  SCC
+      SCC --> DLS
+    end
+    
+  end
+  
+  HR --> RH
+  RH --> A
+  
+  subgraph Client-Server Interaction
+    A -->|Success| AWS
+    AWS --> AcLS
+    AcLS --> DLS
+    AWS --> LL
+  end
+```
