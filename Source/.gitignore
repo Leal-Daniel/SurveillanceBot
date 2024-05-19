@@ -33,8 +33,9 @@ bld/
 [Ll]og/
 [Ll]ogs/
 [Oo]bj/[Dd]ebug
-SurveillanceWebServer/obj/[Dd]ebug
-SurveillanceWebServer/obj/[Dd]ebug/net8.0
+SurveillanceWebServer/obj/*
+SurveillanceWebServer/obj/Debug/
+SurveillanceWebServer/obj/Debug/net8.0/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

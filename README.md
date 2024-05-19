@@ -21,6 +21,7 @@
    cd $env:USERPROFILE
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    .\Downloads\repo\Build\WindowsDeployment.ps1
+   
    ```
 
    **NOTE:** This should open a website with URL `http://localhost:[PORT_NUMBER]` when completed.
