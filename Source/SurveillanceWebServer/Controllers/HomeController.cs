@@ -39,4 +39,10 @@ public class HomeController(ILogger<HomeController> logger) : Controller
     var errorVm = new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier };
     return this.View(errorVm);
   }
+
+  [Route("/VideoFeed")]
+  public IActionResult VideoFeed()
+  {
+    return this.Ok();
+  }
 }

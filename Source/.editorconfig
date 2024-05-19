@@ -233,6 +233,7 @@ dotnet_diagnostic.CA1805.severity = suggestion
 
 # SA1009: Closing parenthesis should be spaced correctly
 dotnet_diagnostic.SA1009.severity = none
+dotnet_diagnostic.SA1503.severity = none
 
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
@@ -288,7 +289,7 @@ dotnet_diagnostic.CA1715.severity = suggestion
 dotnet_diagnostic.CA1716.severity = suggestion
 dotnet_diagnostic.CA1725.severity = suggestion
 dotnet_diagnostic.CA1852.severity = suggestion
-dotnet_diagnostic.CA1848.severity = warning
+dotnet_diagnostic.CA1848.severity = none
 dotnet_diagnostic.CA1863.severity = warning
 dotnet_diagnostic.CA2011.severity = error
 dotnet_diagnostic.CA2251.severity = suggestion

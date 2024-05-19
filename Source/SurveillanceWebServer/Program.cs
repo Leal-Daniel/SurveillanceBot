@@ -2,6 +2,8 @@
 // Copyright (c) Daniel-Leal. All rights reserved.
 // </copyright>
 
+using SurveillanceWebServer.Controllers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

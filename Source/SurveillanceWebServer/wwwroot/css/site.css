@@ -22,10 +22,19 @@ body {
 }
 
 .video-rectangle {
+    justify-content: center;
     display: flex;
-    width: 40vh;
-    height: 40vh;
+    width: 355px;
+    height: 355px;
     background-color: #f0f0f0;
     margin-left: auto;
     margin-right: auto;
 }
+
+/* Media query for small screens */
+    @media screen and (max-width: 480px) {
+        .video-rectangle {
+            max-height: 250px; /* Adjust maximum height for small screens */
+            max-height: 270px; /* Adjust maximum height for small screens */
+        }
+    }
