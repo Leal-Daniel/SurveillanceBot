@@ -23,10 +23,10 @@ public class HomeController(ILogger<HomeController> logger) : Controller
     => this.View();
 
   /// <summary>
-  /// Goes to privacy view.
+  /// Goes to resources view.
   /// </summary>
   /// <returns>View instance.</returns>
-  public IActionResult Privacy()
+  public IActionResult Resources()
     => this.View();
 
   /// <summary>
@@ -35,5 +35,8 @@ public class HomeController(ILogger<HomeController> logger) : Controller
   /// <returns>View instance.</returns>
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult Error()
-    => this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
+  {
+    var errorVm = new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier };
+    return this.View(errorVm);
+  }
 }
