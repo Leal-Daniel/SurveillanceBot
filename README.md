@@ -14,14 +14,10 @@
   
 ## Installation and Deployment
 ### Windows
-1. Install [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.300-windows-x64-installer) and clone the repository:
+1. Install [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.300-windows-x64-installer) and run the deployment script via PowerShell:
    
    ```powershell
    git clone https://github.com/Leal-Daniel/SurveillanceBot.git $env:USERPROFILE\Downloads\repo
-   ```
-2. Run the script via PowerShell:
-   
-   ```powershell
    cd $env:USERPROFILE
    .\Downloads\repo\Build\WindowsDeployment.ps1
    ```
