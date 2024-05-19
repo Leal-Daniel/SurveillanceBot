@@ -17,21 +17,21 @@
 mono_crash.*
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Ww][Ii][Nn]32/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
-[Oo]bj/
-[Oo]ut/
-[Ll]og/
-[Ll]ogs/
+SurveillanceWebServer/[Dd]ebug/
+SurveillanceWebServer/[Dd]ebugPublic/
+SurveillanceWebServer/[Rr]elease/
+SurveillanceWebServer/[Rr]eleases/
+SurveillanceWebServer/x64/
+SurveillanceWebServer/x86/
+SurveillanceWebServer/[Ww][Ii][Nn]32/
+SurveillanceWebServer/[Aa][Rr][Mm]/
+SurveillanceWebServer/[Aa][Rr][Mm]64/
+SurveillanceWebServer/bld/
+SurveillanceWebServer/[Bb]in/
+SurveillanceWebServer/[Oo]bj/
+SurveillanceWebServer/[Oo]ut/
+SurveillanceWebServer/[Ll]og/
+SurveillanceWebServer/[Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
