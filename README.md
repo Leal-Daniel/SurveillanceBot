@@ -26,12 +26,12 @@
 
    **NOTE:** This should open a website with URL `http://localhost:[PORT_NUMBER]` when completed.
 2. Setup online video monitoring using tunneling:
-   1. Activate the tunnel (will output your server's public URL):
+   1. Activate the tunnel (will output your server's public URL) via PowerShell:
   
       ```powershell
       lt --port [PORT_NUMBER]
       ```
-   2. Paste the output URL into your browser and get the tunnel password:
+   2. Paste the output URL into your browser and get the tunnel password via PowerShell:
    
       ```powershell
       curl https://loca.lt/mytunnelpassword

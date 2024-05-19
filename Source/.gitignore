@@ -33,9 +33,9 @@ bld/
 [Ll]og/
 [Ll]ogs/
 [Oo]bj/[Dd]ebug
-SurveillanceWebServer/obj/*
-SurveillanceWebServer/obj/Debug/
-SurveillanceWebServer/obj/Debug/net8.0/
+*.AssemblyInfo.cs
+*.cache
+*.GeneratedMSBuildEditorConfig.editorconfig
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
