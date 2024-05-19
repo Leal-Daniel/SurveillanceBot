@@ -19,6 +19,7 @@
    ```powershell
    git clone https://github.com/Leal-Daniel/SurveillanceBot.git $env:USERPROFILE\Downloads\repo
    cd $env:USERPROFILE
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    .\Downloads\repo\Build\WindowsDeployment.ps1
    ```
 3. Setup online video monitoring using tunneling:
