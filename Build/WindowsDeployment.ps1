@@ -7,9 +7,6 @@ choco install nodejs-lts --version="20.13.1"
 # Install LocalTunnel using Node.js.
 npm install -g localtunnel
 
-# Setup process policy to use localtunnel.
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-
 # Build and run the repo.
 dotnet build $env:USERPROFILE\Downloads\repo\Source\SurveillanceWebServer
-dotnet watch run
+dotnet watch run $env:USERPROFILE\Downloads\repo\Source\SurveillanceWebServer
