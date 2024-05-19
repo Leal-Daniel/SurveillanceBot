@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "KnFJuYCcPUqlf0y33D6djlbuJWJdhOuJW0evv5+w0Kz3b/XJGs2XkMRDXFDiwVVNlg7jNU8KU3Ga4GvQtLDVhQ==",
+  "success": true,
+  "projectFilePath": "C:\\Dev\\PetSurveillanceBot\\Source\\SurveillanceWebServer\\SurveillanceWebServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Daniel Leal\\.nuget\\packages\\stylecop.analyzers\\1.1.118\\stylecop.analyzers.1.1.118.nupkg.sha512"
+  ],
+  "logs": []
+}

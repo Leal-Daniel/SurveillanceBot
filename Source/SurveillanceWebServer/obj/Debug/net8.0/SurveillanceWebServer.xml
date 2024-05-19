@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SurveillanceWebServer</name>
+    </assembly>
+    <members>
+        <member name="T:SurveillanceWebServer.Controllers.HomeController">
+            <summary>
+            Home Controller class.
+            </summary>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:SurveillanceWebServer.Controllers.HomeController.#ctor(Microsoft.Extensions.Logging.ILogger{SurveillanceWebServer.Controllers.HomeController})">
+            <summary>
+            Home Controller class.
+            </summary>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:SurveillanceWebServer.Controllers.HomeController.Index">
+            <summary>
+            Goes to index view.
+            </summary>
+            <returns>View instance.</returns>
+        </member>
+        <member name="M:SurveillanceWebServer.Controllers.HomeController.Privacy">
+            <summary>
+            Goes to privacy view.
+            </summary>
+            <returns>View instance.</returns>
+        </member>
+        <member name="M:SurveillanceWebServer.Controllers.HomeController.Error">
+            <summary>
+            Goes to error view.
+            </summary>
+            <returns>View instance.</returns>
+        </member>
+        <member name="T:SurveillanceWebServer.Models.ErrorViewModel">
+            <summary>
+            Error View Model class.
+            </summary>
+        </member>
+        <member name="P:SurveillanceWebServer.Models.ErrorViewModel.RequestId">
+            <summary>
+            Gets or sets the request ID.
+            </summary>
+        </member>
+        <member name="P:SurveillanceWebServer.Models.ErrorViewModel.ShowRequestId">
+            <summary>
+            Gets a value indicating whether <see cref="P:SurveillanceWebServer.Models.ErrorViewModel.RequestId"/> is not null or empty.
+            </summary>
+        </member>
+    </members>
+</doc>
