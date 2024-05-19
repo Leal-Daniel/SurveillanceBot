@@ -22,19 +22,20 @@
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    .\Downloads\repo\Build\WindowsDeployment.ps1
    ```
-3. Setup online video monitoring using tunneling:
-   1. The previous script should have opened a website with URL `http://localhost:[PORT_NUMBER]`.
-   2. Activate the tunnel. This will output the URL your server is now running on:
+
+   **NOTE:** This should open a website with URL `http://localhost:[PORT_NUMBER]` when completed.
+2. Setup online video monitoring using tunneling:
+   1. Activate the tunnel (will output your server's public URL):
   
       ```powershell
       lt --port [PORT_NUMBER]
       ```
-   3. Get the tunnel password to access the running server:
+   2. Paste the output URL into your browser and get the tunnel password:
    
       ```powershell
       curl https://loca.lt/mytunnelpassword
       ```
-   4. Paste the password into the box prompted by your server URL and you should now have access to it from anywhere!
+   3. Paste the password into the box prompted by your server URL.
 
 ## High-Level Overview
 ```mermaid
