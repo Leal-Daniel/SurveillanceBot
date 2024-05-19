@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveillanceWebServer", "SurveillanceWebServer.csproj", "{0A4393A6-A226-432D-B024-E5BE21BCCBBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveillanceWebServer", "SurveillanceWebServer\SurveillanceWebServer.csproj", "{FA6A2CFD-9702-4D5D-A63B-4D08A4DC9A41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0A4393A6-A226-432D-B024-E5BE21BCCBBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A4393A6-A226-432D-B024-E5BE21BCCBBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A4393A6-A226-432D-B024-E5BE21BCCBBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A4393A6-A226-432D-B024-E5BE21BCCBBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA6A2CFD-9702-4D5D-A63B-4D08A4DC9A41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA6A2CFD-9702-4D5D-A63B-4D08A4DC9A41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA6A2CFD-9702-4D5D-A63B-4D08A4DC9A41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA6A2CFD-9702-4D5D-A63B-4D08A4DC9A41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6998AD0A-129F-4B4B-9531-9F680C0D5ECD}
+		SolutionGuid = {D276C93E-AC85-41E9-918A-DAFFDBE711A5}
 	EndGlobalSection
 EndGlobal

@@ -6,25 +6,38 @@
   - [High-Level Overview](#high-level-overview)
 
 # Pet Surveillance Bot
-**Project Goal:** Using *only* C#, create a publicly accessible live server to control the movement of a streaming robotic device that has pet recognition and movement detection capabilities. 
-- Implementation: [Source/]()
+**Project Goal:** Using *only* C#, create a publicly accessible live server to control the movement of a streaming robotic device that has pet recognition and movement detection capabilities.
+- Installation: [Build/](/Build/)
+- Implementation: [Source/](/Source/)
 - Documentation: [Documentation/SoftwareDesign.md](/Documentation/SoftwareDesign.md)
   - Investigations: [Documentations/Investigations/](/Documentation/Investigations/)
   
 ## Installation and Deployment
 ### Windows
 1. Install [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.300-windows-x64-installer) and clone the repository:
+   
    ```powershell
    git clone https://github.com/Leal-Daniel/PetSurveillanceBot.git $env:USERPROFILE\Downloads\repo
    ```
-3. Run the script via PowerShell:
+2. Run the script via PowerShell:
+   
    ```powershell
-   .\$env:USERPROFILE\Downloads\repo\Build\WindowsInstallation.ps1
+   cd $env:USERPROFILE
+   .\Downloads\repo\Build\WindowsDeployment.ps1
    ```
-4. Setup online video monitoring using tunneling:
-   1. The script should open a website with URL: `http://localhost:[PORT_NUMBER]`.
-   2. Access the live server by using the URL provided after activating the tunnel: `lt --port [PORT_NUMBER]`
-   3. Get the tunnel password `curl https://loca.lt/mytunnelpassword`
+3. Setup online video monitoring using tunneling:
+   1. The previous script should have opened a website with URL `http://localhost:[PORT_NUMBER]`.
+   2. Activate the tunnel. This will output the URL your server is now running on:
+  
+      ```powershell
+      lt --port [PORT_NUMBER]
+      ```
+   3. Get the tunnel password to access the running server:
+   
+      ```powershell
+      curl https://loca.lt/mytunnelpassword
+      ```
+   4. Paste the password into the box prompted by your server URL and you should now have access to it from anywhere!
 
 ## High-Level Overview
 ```mermaid

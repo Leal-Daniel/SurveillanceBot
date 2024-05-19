@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SurveillanceWebServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9c6f7ec191fc57f997ee5146f4581b3c5a0556c3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6c3bf6223b8f0c891ed72509997066cc516efd0f")]
 [assembly: System.Reflection.AssemblyProductAttribute("SurveillanceWebServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SurveillanceWebServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
