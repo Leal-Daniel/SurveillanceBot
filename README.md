@@ -1,12 +1,12 @@
 # Table of Contents
 - [Table of Contents](#table-of-contents)
-- [Pet Surveillance Bot](#pet-surveillance-bot)
+- [Surveillance Bot](#surveillance-bot)
   - [Installation and Deployment](#installation-and-deployment)
     - [Windows](#windows)
   - [High-Level Overview](#high-level-overview)
 
-# Pet Surveillance Bot
-**Project Goal:** Using *only* C#, create a publicly accessible live server to control the movement of a streaming robotic device that has pet recognition and movement detection capabilities.
+# Surveillance Bot
+**Project Goal:** Using *only* C#, create a publicly accessible live server to control the movement of a streaming robotic device that has pet/person recognition and movement detection capabilities.
 - Installation: [Build/](/Build/)
 - Implementation: [Source/](/Source/)
 - Documentation: [Documentation/SoftwareDesign.md](/Documentation/SoftwareDesign.md)
@@ -17,7 +17,7 @@
 1. Install [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.300-windows-x64-installer) and clone the repository:
    
    ```powershell
-   git clone https://github.com/Leal-Daniel/PetSurveillanceBot.git $env:USERPROFILE\Downloads\repo
+   git clone https://github.com/Leal-Daniel/SurveillanceBot.git $env:USERPROFILE\Downloads\repo
    ```
 2. Run the script via PowerShell:
    

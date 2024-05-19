@@ -45,11 +45,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dev\\PetSurveillanceBot\\Source\\SurveillanceWebServer\\SurveillanceWebServer.csproj",
+      "projectUniqueName": "C:\\Dev\\SurveillanceBot\\Source\\SurveillanceWebServer\\SurveillanceWebServer.csproj",
       "projectName": "SurveillanceWebServer",
-      "projectPath": "C:\\Dev\\PetSurveillanceBot\\Source\\SurveillanceWebServer\\SurveillanceWebServer.csproj",
+      "projectPath": "C:\\Dev\\SurveillanceBot\\Source\\SurveillanceWebServer\\SurveillanceWebServer.csproj",
       "packagesPath": "C:\\Users\\Daniel Leal\\.nuget\\packages\\",
-      "outputPath": "C:\\Dev\\PetSurveillanceBot\\Source\\SurveillanceWebServer\\obj\\",
+      "outputPath": "C:\\Dev\\SurveillanceBot\\Source\\SurveillanceWebServer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Daniel Leal\\AppData\\Roaming\\NuGet\\NuGet.Config",
