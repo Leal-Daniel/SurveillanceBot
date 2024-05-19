@@ -19,9 +19,9 @@
    ```powershell
    git clone https://github.com/Leal-Daniel/SurveillanceBot.git $env:USERPROFILE\Downloads\repo
    cd $env:USERPROFILE
-   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass
    .\Downloads\repo\Build\WindowsDeployment.ps1
-   
+
    ```
 
    **NOTE:** This should open a website with URL `http://localhost:[PORT_NUMBER]` when completed.
