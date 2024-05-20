@@ -5,6 +5,14 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveillanceWebServer", "SurveillanceWebServer\SurveillanceWebServer.csproj", "{FA6A2CFD-9702-4D5D-A63B-4D08A4DC9A41}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{D2FAFEAC-EEE3-40F0-B654-2C0188480DA4}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes.txt = .gitattributes.txt
+		.gitignore = .gitignore
+		..\Build\WindowsDeployment.ps1 = ..\Build\WindowsDeployment.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
