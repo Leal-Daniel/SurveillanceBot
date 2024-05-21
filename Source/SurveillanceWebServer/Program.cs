@@ -2,7 +2,9 @@
 // Copyright (c) Daniel-Leal. All rights reserved.
 // </copyright>
 
+using OpenCvSharp;
 using SurveillanceWebServer.Controllers;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
