@@ -86,6 +86,7 @@ public class HomeController(ILogger<HomeController> logger) : Controller
       }
     }
 
+    this.Capture?.Release();
     this.isInitialized = false;
   }
 }
