@@ -6,12 +6,14 @@
   - [High-Level Overview](#high-level-overview)
 
 # Surveillance Bot
-**Project Goal:** Using *only* C#, create a publicly accessible live server to control the movement of a streaming robotic device that has pet/person recognition and movement detection capabilities.
+**Project Goal:** Using *only* C#, create a publicly accessible live web server to control the movement of a streaming robotic device that has pet/person recognition and movement detection capabilities.
 - Installation: [Build/](/Build/)
 - Implementation: [Source/](/Source/)
 - Documentation: [Documentation/SoftwareDesign.md](/Documentation/SoftwareDesign.md)
   - Investigations: [Documentations/Investigations/](/Documentation/Investigations/)
-  
+
+![alt text](/Documentation//Investigations//Data/surveillance.gif)
+
 ## Installation and Deployment
 ### Windows
 1. Install [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.300-windows-x64-installer) and run the deployment script via PowerShell:
