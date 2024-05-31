@@ -4,9 +4,11 @@
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing.Imaging;
 using System.Text;
+using Emgu.CV;
+using Emgu.CV.Structure;
 using Microsoft.AspNetCore.Mvc;
-using OpenCvSharp;
 using SurveillanceWebServer.Models;
 
 namespace SurveillanceWebServer.Controllers;
@@ -57,19 +59,19 @@ public class HomeController(ILogger<HomeController> logger) : Controller
 
     if (!this.isInitialized)
     {
-      this.Capture = new VideoCapture(0, VideoCaptureAPIs.DSHOW);
+      this.Capture = new VideoCapture(0,  VideoCapture.API.DShow);
       this.isInitialized = true;
     }
 
-    while (this.Capture is not null && this.Capture.IsOpened())
+    while (this.Capture is not null && this.Capture.IsOpened)
     {
       using var frame = new Mat();
       this.Capture.Read(frame);
 
-      if (!frame.Empty())
+      if (!frame.IsEmpty)
       {
         using var stream = new MemoryStream();
-        var bytes = frame.ImEncode(".jpg");
+        var bytes = CvInvoke.Imencode(".jpg", frame);
         await stream.WriteAsync(bytes);
 
         var initial = Encoding.UTF8.GetBytes("--frame\r\n");
