@@ -8,5 +8,38 @@
 </div>
 
 <div class="video-rectangle">
-    <img id="VideoFeed" src="@Url.Action("VideoFeed", "Home")">
+    <canvas id="videoCanvas" width="640" height="480"></canvas>
 </div>
+
+
+<script>
+    const canvas = document.getElementById('videoCanvas');
+    const context = canvas.getContext('2d');
+    const ws = new WebSocket('ws://localhost:5001/ws');
+
+    ws.binaryType = 'arraybuffer';
+
+    ws.onmessage = function(event) {
+        const blob = new Blob([event.data], { type: 'image/jpeg' });
+        const url = URL.createObjectURL(blob);
+
+        const img = new Image();
+        img.onload = function() {
+            context.drawImage(img, 0, 0);
+            URL.revokeObjectURL(url);
+        };
+        img.src = url;
+    };
+
+    ws.onopen = function() {
+        console.log("WebSocket connection established");
+    };
+
+    ws.onerror = function(error) {
+        console.error("WebSocket error: " + error.message);
+    };
+
+    ws.onclose = function() {
+        console.log("WebSocket connection closed");
+    };
+</script>

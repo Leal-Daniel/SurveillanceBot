@@ -5,6 +5,7 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Imaging;
+using System.Net.WebSockets;
 using System.Text;
 using Emgu.CV;
 using Emgu.CV.Structure;
@@ -19,8 +20,8 @@ namespace SurveillanceWebServer.Controllers;
 /// <param name="logger">The logger.</param>
 public class HomeController(ILogger<HomeController> logger) : Controller
 {
-  private VideoCapture? Capture { get; set; }
-  private bool isInitialized;
+  private readonly ILogger logger = logger;
+  private readonly VideoCapture capture = new(0, VideoCapture.API.DShow);
 
   /// <summary>
   /// Goes to index view.
@@ -48,47 +49,45 @@ public class HomeController(ILogger<HomeController> logger) : Controller
   }
 
   /// <summary>
-  /// Route to the video feed live stream.
+  /// Function that is triggered to start live stream.
   /// </summary>
-  /// <returns>The video feed task.</returns>
-  [HttpGet]
-  [Route("/VideoFeed")]
-  public async Task VideoFeed()
+  /// <param name="context">The HTTP context of the call.</param>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+  public async Task TriggerLiveStream(HttpContext context)
   {
-    this.Response.Headers.Append("Content-Type", "multipart/x-mixed-replace; boundary=frame");
-
-    if (!this.isInitialized)
+    if (!context.WebSockets.IsWebSocketRequest)
     {
-      this.Capture = new VideoCapture(0,  VideoCapture.API.DShow);
-      this.isInitialized = true;
+      context.Response.StatusCode = 400;
     }
 
-    while (this.Capture is not null && this.Capture.IsOpened)
+    var websocket = await context.WebSockets.AcceptWebSocketAsync();
+    if (this.capture == null)
     {
-      using var frame = new Mat();
-      this.Capture.Read(frame);
-
-      if (!frame.IsEmpty)
-      {
-        using var stream = new MemoryStream();
-        var bytes = CvInvoke.Imencode(".jpg", frame);
-        await stream.WriteAsync(bytes);
-
-        var initial = Encoding.UTF8.GetBytes("--frame\r\n");
-        await this.Response.Body.WriteAsync(initial);
-
-        var contentType = Encoding.UTF8.GetBytes("Content-Type: image/jpeg\r\n\r\n");
-        await this.Response.Body.WriteAsync(contentType);
-
-        var frameBytes = stream.ToArray();
-        await this.Response.Body.WriteAsync(frameBytes);
-
-        var final = Encoding.UTF8.GetBytes("\r\n");
-        await this.Response.Body.WriteAsync(final);
-      }
+      context.Response.StatusCode = 500;
+      return;
     }
 
-    this.Capture?.Release();
-    this.isInitialized = false;
+    var frame = new Mat();
+    while (websocket.State is WebSocketState.Open)
+    {
+      this.capture.Read(frame);
+      if (frame.IsEmpty) continue;
+
+      var bitmap = frame.ToBitmap();
+      using var stream = new MemoryStream();
+      bitmap.Save(stream, ImageFormat.Jpeg);
+      var bytes = stream.ToArray();
+
+      await websocket.SendAsync(bytes, WebSocketMessageType.Binary, true, CancellationToken.None);
+    }
+  }
+
+  /// <summary>
+  /// Gracefully closes and disposes the camera.
+  /// </summary>
+  public void CloseCamera()
+  {
+    this.capture.Release();
+    this.capture.Dispose();
   }
 }
