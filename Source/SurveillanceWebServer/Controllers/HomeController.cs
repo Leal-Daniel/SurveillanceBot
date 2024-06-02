@@ -18,10 +18,11 @@ namespace SurveillanceWebServer.Controllers;
 /// Home Controller class.
 /// </summary>
 /// <param name="logger">The logger.</param>
-public class HomeController(ILogger<HomeController> logger) : Controller
+public class HomeController(ILogger<HomeController> logger) : Controller, IDisposable
 {
   private readonly ILogger logger = logger;
-  private readonly VideoCapture capture = new(0, VideoCapture.API.DShow);
+  private VideoCapture? capture;
+  private bool isInitialized;
 
   /// <summary>
   /// Goes to index view.
@@ -55,39 +56,74 @@ public class HomeController(ILogger<HomeController> logger) : Controller
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   public async Task TriggerLiveStream(HttpContext context)
   {
-    if (!context.WebSockets.IsWebSocketRequest)
+    this.InitializeVideo();
+
+    if (!context.WebSockets.IsWebSocketRequest || this.capture == null)
     {
       context.Response.StatusCode = 400;
-    }
-
-    var websocket = await context.WebSockets.AcceptWebSocketAsync();
-    if (this.capture == null)
-    {
-      context.Response.StatusCode = 500;
       return;
     }
 
     var frame = new Mat();
-    while (websocket.State is WebSocketState.Open)
+    var websocket = await context.WebSockets.AcceptWebSocketAsync();
+    try
     {
-      this.capture.Read(frame);
-      if (frame.IsEmpty) continue;
+      while (true)
+      {
+        this.capture.Read(frame);
+        if (frame.IsEmpty) continue;
+        if (websocket.State is WebSocketState.CloseSent
+          or WebSocketState.CloseReceived
+          or WebSocketState.Closed
+          or WebSocketState.Aborted)
+        {
+          this.Dispose();
+          break;
+        }
 
-      var bitmap = frame.ToBitmap();
-      using var stream = new MemoryStream();
-      bitmap.Save(stream, ImageFormat.Jpeg);
-      var bytes = stream.ToArray();
+        var bitmap = frame.ToBitmap();
+        using var stream = new MemoryStream();
+        bitmap.Save(stream, ImageFormat.Jpeg);
+        var bytes = stream.ToArray();
 
-      await websocket.SendAsync(bytes, WebSocketMessageType.Binary, true, CancellationToken.None);
+        await websocket.SendAsync(bytes, WebSocketMessageType.Binary, true, CancellationToken.None);
+      }
+    }
+    catch (Exception ex)
+    {
+      this.logger.LogError("{ExType} was thrown with message: {Message}", ex.GetType(), ex.Message);
+    }
+    finally
+    {
+      this.Dispose();
     }
   }
 
   /// <summary>
-  /// Gracefully closes and disposes the camera.
+  /// Disposes resources, specifically camera.
   /// </summary>
-  public void CloseCamera()
+  public new void Dispose()
   {
-    this.capture.Release();
-    this.capture.Dispose();
+    this.Dispose(disposing: true);
+    GC.SuppressFinalize(this);
+  }
+
+  private new void Dispose(bool disposing)
+  {
+    if (disposing)
+    {
+      this.capture?.Release();
+      this.capture?.Dispose();
+      this.isInitialized = false;
+    }
+  }
+
+  private void InitializeVideo()
+  {
+    if (!this.isInitialized)
+    {
+      this.capture = new VideoCapture(0, VideoCapture.API.DShow);
+      this.isInitialized = true;
+    }
   }
 }
