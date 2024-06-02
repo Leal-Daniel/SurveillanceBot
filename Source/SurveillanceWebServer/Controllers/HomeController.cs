@@ -18,7 +18,7 @@ namespace SurveillanceWebServer.Controllers;
 /// Home Controller class.
 /// </summary>
 /// <param name="logger">The logger.</param>
-public class HomeController(ILogger<HomeController> logger) : Controller, IDisposable
+public class HomeController(ILogger<HomeController> logger) : Controller
 {
   private readonly ILogger logger = logger;
   private VideoCapture? capture;
@@ -56,7 +56,7 @@ public class HomeController(ILogger<HomeController> logger) : Controller, IDispo
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   public async Task TriggerLiveStream(HttpContext context)
   {
-    this.InitializeVideo();
+    this.InitializeCapture();
 
     if (!context.WebSockets.IsWebSocketRequest || this.capture == null)
     {
@@ -95,30 +95,13 @@ public class HomeController(ILogger<HomeController> logger) : Controller, IDispo
     }
     finally
     {
-      this.Dispose();
-    }
-  }
-
-  /// <summary>
-  /// Disposes resources, specifically camera.
-  /// </summary>
-  public new void Dispose()
-  {
-    this.Dispose(disposing: true);
-    GC.SuppressFinalize(this);
-  }
-
-  private new void Dispose(bool disposing)
-  {
-    if (disposing)
-    {
       this.capture?.Release();
       this.capture?.Dispose();
       this.isInitialized = false;
     }
   }
 
-  private void InitializeVideo()
+  private void InitializeCapture()
   {
     if (!this.isInitialized)
     {

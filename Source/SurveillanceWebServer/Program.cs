@@ -7,7 +7,7 @@ using SurveillanceWebServer.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure web host to listen on all IPs.
-builder.WebHost.ConfigureKestrel((context, options) => options.ListenAnyIP(5001));
+builder.WebHost.ConfigureKestrel((context, options) => options.ListenAnyIP(1225));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
