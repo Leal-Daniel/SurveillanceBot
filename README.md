@@ -21,13 +21,7 @@
    ```powershell
    git clone https://github.com/Leal-Daniel/SurveillanceBot.git $env:USERPROFILE\Downloads\repo
    cd $env:USERPROFILE
-   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass
-   .\Downloads\repo\Build\WindowsDeployment.ps1
-   
-   Write-Host "[SurveillanceBot] Building the software..." -ForegroundColor Magenta
    dotnet build $env:USERPROFILE\Downloads\repo\Source\SurveillanceWebServer -v q
-   
-   Write-Host "[SurveillanceBot] Running the software..." -ForegroundColor Magenta
    dotnet watch run --project $env:USERPROFILE\Downloads\repo\Source\SurveillanceWebServer
 
    ```
