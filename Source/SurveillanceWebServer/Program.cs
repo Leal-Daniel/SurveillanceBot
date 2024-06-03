@@ -12,8 +12,8 @@ builder.WebHost.ConfigureKestrel((context, options) => options.ListenAnyIP(1225)
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Register the HomeController explicitly.
-builder.Services.AddScoped<HomeController>();
+// Register the Video Feed Controller explicitly.
+builder.Services.AddScoped<VideoFeedController>();
 
 // Configure the HTTP request pipeline.
 var app = builder.Build();
@@ -31,5 +31,9 @@ app.UseAuthorization();
 app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
 // If websocket is requested, begin video feed for client.
-app.Map("/ws", async context => await context.RequestServices.GetRequiredService<HomeController>().TriggerLiveStream(context));
+app.Map("/ws", async context =>
+{
+  var videoFeed = context.RequestServices.GetRequiredService<VideoFeedController>();
+  await videoFeed.BeginVideo(context);
+});
 app.Run();
