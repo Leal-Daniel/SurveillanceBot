@@ -23,22 +23,17 @@
    cd $env:USERPROFILE
    Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass
    .\Downloads\repo\Build\WindowsDeployment.ps1
+   
+   Write-Host "[SurveillanceBot] Building the software..." -ForegroundColor Magenta
+   dotnet build $env:USERPROFILE\Downloads\repo\Source\SurveillanceWebServer -v q
+   
+   Write-Host "[SurveillanceBot] Running the software..." -ForegroundColor Magenta
+   dotnet watch run --project $env:USERPROFILE\Downloads\repo\Source\SurveillanceWebServer
 
    ```
 
-   **NOTE:** This should open a website with URL `http://localhost:[PORT_NUMBER]` when completed.
-2. Setup online video monitoring using tunneling:
-   1. Activate the tunnel (will output your server's public URL) via PowerShell:
-  
-      ```powershell
-      lt --port [PORT_NUMBER]
-      ```
-   2. Paste the output URL into your browser and get the tunnel password via PowerShell:
-   
-      ```powershell
-      curl https://loca.lt/mytunnelpassword
-      ```
-   3. Paste the password into the box prompted by your server URL.
+   **NOTE:** This should open a website with URL `http://localhost:1225` when completed.
+2. Setup online web server stream by port forwarding `1225` and modifying the IP address in [line 18 of index.cshtml](/Source/SurveillanceWebServer/Views/Home/Index.cshtml).
 
 ## High-Level Overview
 ```mermaid
