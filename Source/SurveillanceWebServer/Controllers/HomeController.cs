@@ -20,10 +20,6 @@ namespace SurveillanceWebServer.Controllers;
 /// <param name="logger">The logger.</param>
 public class HomeController(ILogger<HomeController> logger) : Controller
 {
-  private readonly ILogger logger = logger;
-  private VideoCapture? capture;
-  private bool isInitialized;
-
   /// <summary>
   /// Goes to index view.
   /// </summary>
@@ -47,66 +43,5 @@ public class HomeController(ILogger<HomeController> logger) : Controller
   {
     var errorVm = new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier };
     return this.View(errorVm);
-  }
-
-  /// <summary>
-  /// Function that is triggered to start live stream.
-  /// </summary>
-  /// <param name="context">The HTTP context of the call.</param>
-  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-  public async Task TriggerLiveStream(HttpContext context)
-  {
-    this.InitializeCapture();
-
-    if (!context.WebSockets.IsWebSocketRequest || this.capture == null)
-    {
-      context.Response.StatusCode = 400;
-      return;
-    }
-
-    var frame = new Mat();
-    var websocket = await context.WebSockets.AcceptWebSocketAsync();
-    try
-    {
-      while (true)
-      {
-        this.capture.Read(frame);
-        if (frame.IsEmpty) continue;
-        if (websocket.State is WebSocketState.CloseSent
-          or WebSocketState.CloseReceived
-          or WebSocketState.Closed
-          or WebSocketState.Aborted)
-        {
-          this.Dispose();
-          break;
-        }
-
-        var bitmap = frame.ToBitmap();
-        using var stream = new MemoryStream();
-        bitmap.Save(stream, ImageFormat.Jpeg);
-        var bytes = stream.ToArray();
-
-        await websocket.SendAsync(bytes, WebSocketMessageType.Binary, true, CancellationToken.None);
-      }
-    }
-    catch (Exception ex)
-    {
-      this.logger.LogError("{ExType} was thrown with message: {Message}", ex.GetType(), ex.Message);
-    }
-    finally
-    {
-      this.capture?.Release();
-      this.capture?.Dispose();
-      this.isInitialized = false;
-    }
-  }
-
-  private void InitializeCapture()
-  {
-    if (!this.isInitialized)
-    {
-      this.capture = new VideoCapture(0, VideoCapture.API.DShow);
-      this.isInitialized = true;
-    }
   }
 }

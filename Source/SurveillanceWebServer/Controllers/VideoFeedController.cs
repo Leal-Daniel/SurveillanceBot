@@ -3,7 +3,11 @@
 // </copyright>
 
 using Emgu.CV;
+using Emgu.CV.Structure;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.Net;
@@ -20,7 +24,7 @@ public class VideoFeedController(ILogger<VideoFeedController> logger) : Controll
   private readonly ILogger logger = logger;
   private VideoCapture? capture;
   private bool isInitialized;
-  private object initializationLock = new();
+  private readonly object initializationLock = new();
 
   /// <summary>
   /// Initializes, begins, and finalizes the video feed.
@@ -28,48 +32,67 @@ public class VideoFeedController(ILogger<VideoFeedController> logger) : Controll
   /// <param name="context">The HTTP context.</param>
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   public async Task BeginVideo(HttpContext context)
-    => await Task.WhenAll(
-      this.InitializeVideo(context),
-      this.StreamVideo(context));
+  {
+    var initialized = await this.InitializeVideo(context);
+    if (initialized)
+    {
+      await this.StreamVideo(context);
+    }
+  }
 
-  private async Task InitializeVideo(HttpContext context)
+  private async Task<bool> InitializeVideo(HttpContext context)
   {
     var (ip, location) = await AcquireUserInfo(context);
     lock (this.initializationLock)
     {
-      if (!this.isInitialized)
-      {
-        // Initialize camera capture for client.
-        this.capture = new VideoCapture(0, VideoCapture.API.DShow);
-        this.isInitialized = true;
+      if (this.isInitialized)
+        return true;
 
-        // Log the time, IP address, and location of client's entry.
-        var time = DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss", CultureInfo.InvariantCulture);
-        this.logger.LogInformation("{Time} | Client {Ip} has joined from {Location}.", time, ip, location);
-      }
+      // Initialize camera capture for client.
+      this.capture = new VideoCapture(0, VideoCapture.API.DShow);
+      this.isInitialized = true;
+
+      // Log the time, IP address, and location of client's entry.
+      var time = DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss", CultureInfo.InvariantCulture);
+      this.logger.LogInformation("{Time} | Client {Ip} has joined from {Location}.", time, ip, location);
+
+      return this.capture is not null;
     }
   }
 
+  [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "Only running on Windows PC for now.")]
   private async Task StreamVideo(HttpContext context)
   {
+    // Do not stream if initialization was unsuccessful.
+    if (!this.isInitialized)
+    {
+      return;
+    }
+
+    // Get frame and websocket.
+    var frame = new Mat();
+    var websocket = await context.WebSockets.AcceptWebSocketAsync();
+
+    // Create a single reusable stream to avoid memory leaks.
+    using var stream = new MemoryStream();
+
     try
     {
-      // Get frame and websocket.
-      var frame = new Mat();
-      var websocket = await context.WebSockets.AcceptWebSocketAsync();
-
       // Continuously stream when requested.
-      while (true)
+      while (websocket.State is WebSocketState.Open)
       {
+        // Read the camera frames, continue if empty.
         this.capture?.Read(frame);
-        if (frame.IsEmpty) continue;
+        if (frame.IsEmpty)
+          break;
 
-        var bitmap = frame.ToBitmap();
-        using var stream = new MemoryStream();
-        bitmap.Save(stream, ImageFormat.Jpeg);
+        // Send frames to websocket.
+        stream.SetLength(0);
+        frame.ToBitmap().Save(stream, ImageFormat.Jpeg);
         var bytes = stream.ToArray();
 
-        await websocket.SendAsync(bytes, WebSocketMessageType.Binary, true, CancellationToken.None);
+        if (bytes.Length > 0)
+          await websocket.SendAsync(bytes, WebSocketMessageType.Binary, true, CancellationToken.None);
       }
     }
     catch (Exception ex)
@@ -79,6 +102,7 @@ public class VideoFeedController(ILogger<VideoFeedController> logger) : Controll
     finally
     {
       await this.FinalizeVideo(context);
+      websocket.Dispose();
     }
   }
 
@@ -101,7 +125,7 @@ public class VideoFeedController(ILogger<VideoFeedController> logger) : Controll
     // Get IP address of client.
     var ip = context.Connection.RemoteIpAddress?.ToString().Split("ffff:")[1] ?? "[IP not found]";
 
-    // Get geolocation of client.
+    // Get city and region of client.
     var locationStatus = await client.GetAsync($"https://ipinfo.io/{ip}/json");
     var locationJson = locationStatus.IsSuccessStatusCode ? await locationStatus.Content.ReadAsStringAsync() : null;
     if (locationJson is not null)
@@ -119,6 +143,4 @@ public class VideoFeedController(ILogger<VideoFeedController> logger) : Controll
 
     return (ip, "[Location not found]");
   }
-
-  private sealed record Visitors(string Ip, string City, string State);
 }
